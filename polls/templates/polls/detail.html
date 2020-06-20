@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail for {{question.id}}</title>
+    <title>Detail for {{ question.id }}</title>
 </head>
 <body>
-    {{question}}
+    <h1>{{ question.question_text }} </h1>
+    <ul>
+    {% for choice in questions.choice_set.all %}
+        <li>{{ choice.choice_text }}</li>
+    {% endfor %}
+    </ul>
 </body>
 </html>
