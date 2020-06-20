@@ -7,10 +7,21 @@
 </head>
 <body>
     <h1>{{ question.question_text }} </h1>
-    <ul>
+
+    {# Handle any errors #}
+    {% if error_message %} <p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <h2>Cast your vote!</h2>
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+    {# Cast a cross site request forgery token #}
+    {% csrf_token %}
+
     {% for choice in questions.choice_set.all %}
-        <li>{{ choice.choice_text }}</li>
+        <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{choice.id}}">
+        <label for="choice{{forloop.counter}}">{{choice.choice_text}}</label>
+        <br/>
     {% endfor %}
-    </ul>
+    <input type="submit" value="Vote">
+    </form>
 </body>
 </html>
